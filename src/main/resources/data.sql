@@ -1,0 +1,135 @@
+-- -- --Add initial role
+-- INSERT INTO delivery_system.role (ROLE_NAME) VALUES ('ROLE_USER');
+-- INSERT INTO delivery_system.role (ROLE_NAME) VALUES ('ROLE_ADMIN');
+--
+--
+--
+-- insert into delivery_system.user values(1,now(), now(),1,'mubashar@yopmail.com', 'mubashar',1,'ali',
+--   '$2a$10$ii34BJipVlZdtXLi3HFAJO9we6Z7BLnV48yNPGAEuKbWup7N2c7oW', 'mubasharali');
+-- insert into delivery_system.user values(2,now(), now(),1,'mubashar1@yopmail.com', 'mubashar',1,'alii',
+--  '$2a$10$ii34BJipVlZdtXLi3HFAJO9we6Z7BLnV48yNPGAEuKbWup7N2c7oW', 'mubasharalii');
+-- insert into delivery_system.user values(3,now(), now(),1,'mubashar2@yopmail.com', 'mubashar',1,
+-- '$2a$10$ii34BJipVlZdtXLi3HFAJO9we6Z7BLnV48yNPGAEuKbWup7N2c7oW','Abcd1234', 'mubasharali1');
+-- INSERT INTO `delivery_system`.`user_authority` (`user_id`, `role_id`) VALUES (1, 1);
+-- INSERT INTO `delivery_system`.`user_authority` (`user_id`, `role_id`) VALUES (2, 2);
+-- INSERT INTO `delivery_system`.`user_authority` (`user_id`, `role_id`) VALUES (3, 1);
+-- UPDATE `delivery_system`.`user` SET `last_name` = 'ali', `password` = '$2a$10$ii34BJipVlZdtXLi3HFAJO9we6Z7BLnV48yNPGAEuKbWup7N2c7oW' WHERE (`user_id` = '3');
+--
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'VIP', 'ORDER_RECIEVED',  (now() + INTERVAL 32 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'NEW', 'ORDER_PREPARING',  (now() + INTERVAL 12 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 10 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(),'VIP', 'ORDER_PREPARING',  (now() + INTERVAL 8 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 17 MINUTE), 4, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'VIP', 'ORDER_RECIEVED',  (now() + INTERVAL 31 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'VIP', 'ORDER_RECIEVED',  (now() + INTERVAL 32 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'NEW', 'ORDER_PREPARING',  (now() + INTERVAL 12 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 10 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(),'VIP', 'ORDER_PREPARING',  (now() + INTERVAL 8 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 7 MINUTE), 4, CURRENT_TIMESTAMP()-9,10,4);
+-- --
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'VIP', 'ORDER_RECIEVED',  (now() + INTERVAL 32 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'NEW', 'ORDER_PREPARING',  (now() + INTERVAL 12 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 10 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(),'VIP', 'ORDER_PREPARING',  (now() + INTERVAL 8 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 7 MINUTE), 4, CURRENT_TIMESTAMP()-9,10,4);
+-- --
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'VIP', 'ORDER_RECIEVED',  (now() + INTERVAL 32 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'NEW', 'ORDER_PREPARING',  (now() + INTERVAL 12 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 40 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(),'VIP', 'ORDER_PREPARING',  (now() + INTERVAL 58 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 67 MINUTE), 4, CURRENT_TIMESTAMP()-9,10,4);
+-- --
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'NEW', 'ORDER_PREPARING',  (now() + INTERVAL 14 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 21 MINUTE), 10, CURRENT_TIMESTAMP()-9,10,4);
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(),'VIP', 'ORDER_PREPARING',  (now() + INTERVAL 18 MINUTE), 10, CURRENT_TIMESTAMP()-9,20,4);
+--
+--
+-- insert into delivery (created_at,updated_at, customer_type, order_status, expected_delivery_time, current_distance,
+--                       time_to_reach_distance,mean_time_to_prepare_mins,rider_rating)
+-- values(CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP(), 'LOYAL', 'ORDER_RECIEVED',  (now() + INTERVAL 17 MINUTE), 4, CURRENT_TIMESTAMP()-9,10,4);
+--
+
+--
+-- update delivery set rider_rating = 4 where delivery_id > 0
+
+
