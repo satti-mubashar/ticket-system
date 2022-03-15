@@ -18,8 +18,8 @@ public class DeliveryService {
     @Autowired
     private DeliveryRepository deliveryRepository;
 
-    @Async
     public List<Delivery> getAllUnDeliverdDelivery(DeliveryStatus deliveryStatus){
+        logger.info("Get delivereis");
         return deliveryRepository.findAllByDeliveryStatusNot(deliveryStatus);
     }
 
