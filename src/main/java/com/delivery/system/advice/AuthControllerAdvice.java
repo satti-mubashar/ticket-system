@@ -16,16 +16,8 @@ package com.delivery.system.advice;
 import com.delivery.system.exception.AppException;
 import com.delivery.system.exception.BadRequestException;
 import com.delivery.system.exception.InvalidTokenRequestException;
-import com.delivery.system.exception.MailSendException;
-import com.delivery.system.exception.PasswordResetException;
-import com.delivery.system.exception.PasswordResetLinkException;
-import com.delivery.system.exception.ResourceAlreadyInUseException;
 import com.delivery.system.exception.ResourceNotFoundException;
-import com.delivery.system.exception.TokenRefreshException;
-import com.delivery.system.exception.UpdatePasswordException;
 import com.delivery.system.exception.UserLoginException;
-import com.delivery.system.exception.UserLogoutException;
-import com.delivery.system.exception.UserRegistrationException;
 import com.delivery.system.model.payload.ApiResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,13 +102,6 @@ public class AuthControllerAdvice {
         return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
     }
 
-    @ExceptionHandler(value = ResourceAlreadyInUseException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ResponseBody
-    public ApiResponse handleResourceAlreadyInUseException(ResourceAlreadyInUseException ex, WebRequest request) {
-        return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
-    }
-
     @ExceptionHandler(value = ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
@@ -149,14 +134,6 @@ public class AuthControllerAdvice {
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
     @ResponseBody
     public ApiResponse handleBadCredentialsException(BadCredentialsException ex, WebRequest request) {
-        return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
-    }
-
-
-    @ExceptionHandler(value = PasswordResetLinkException.class)
-    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-    @ResponseBody
-    public ApiResponse handlePasswordResetLinkException(PasswordResetLinkException ex, WebRequest request) {
         return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
     }
 
