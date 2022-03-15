@@ -18,7 +18,7 @@ public class AdjustDeliveryCornService {
     private DeliveryService deliveryService;
 
 
-     @Scheduled(cron =  "0 0/1 * * * *")
+     @Scheduled(cron =  "${delivery.corn}")
     public void adjustAllDeliveryWithStatusNotDelivered() {
         logger.info("Call Adjust priority  cron job");
         deliveryService.getDeliveriesAndAdjust();
