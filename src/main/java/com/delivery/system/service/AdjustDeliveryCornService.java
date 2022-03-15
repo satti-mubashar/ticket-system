@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 
 @Service
@@ -15,12 +14,12 @@ public class AdjustDeliveryCornService {
     private static final Logger logger = LoggerFactory.getLogger(AdjustDeliveryCornService.class);
 
     @Autowired
-    private DeliveryService deliveryService;
+    private TicketService ticketService;
 
 
      @Scheduled(cron =  "${delivery.corn}")
     public void adjustAllDeliveryWithStatusNotDelivered() {
         logger.info("Call Adjust priority  cron job");
-        deliveryService.getDeliveriesAndAdjust();
+        ticketService.getDeliveriesAndAdjust();
     }
 }
