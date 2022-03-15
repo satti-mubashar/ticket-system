@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Service
 public class TicketService {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(TicketService.class);
 
     @Autowired
@@ -30,8 +30,8 @@ public class TicketService {
 
     @Autowired
     private DeliveryService deliveryService;
-    
-    public Page<Ticket> getAllTicket(Pageable pageable){
+
+    public Page<Ticket> getAllTicket(Pageable pageable) {
         return ticketRepository.findAll(pageable);
     }
 
@@ -39,7 +39,20 @@ public class TicketService {
     public List<Delivery> adjustPriority() {
 
         List<Delivery> deliveries = deliveryService.getAllUnDeliverdDelivery(DeliveryStatus.ORDER_DELIVERED);
+        setPriorityOfDeliveries(deliveries);
+        return deliveries;
+    }
 
+    public Ticket createTicket(DeliveryPriority deliveryPriority, Delivery delivery) {
+        Ticket ticket = new Ticket();
+        ticket.setPrioirty(deliveryPriority);
+        ticket.setDelivery(delivery);
+        ticket.setTicketType(TicketType.OPEN);
+        return ticket;
+    }
+
+    @Async
+    public void setPriorityOfDeliveries(List<Delivery> deliveries) {
         for (Delivery delivery : deliveries) {
             Set<Ticket> ticketSet = null;
             switch (delivery.getCustomerType()) {
@@ -87,16 +100,6 @@ public class TicketService {
 
             delivery.setPrioirty(DeliveryPriority.LOW);
         }
-
-        return deliveries;
-    }
-
-    public Ticket createTicket(DeliveryPriority deliveryPriority, Delivery delivery) {
-        Ticket ticket = new Ticket();
-        ticket.setPrioirty(deliveryPriority);
-        ticket.setDelivery(delivery);
-        ticket.setTicketType(TicketType.OPEN);
-        return ticket;
     }
 
     @Async
