@@ -46,13 +46,11 @@ public class AuthController {
     private static final Logger logger = Logger.getLogger(AuthController.class);
     private final AuthService authService;
     private final JwtTokenProvider tokenProvider;
-    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Autowired
-    public AuthController(AuthService authService, JwtTokenProvider tokenProvider, ApplicationEventPublisher applicationEventPublisher) {
+    public AuthController(AuthService authService, JwtTokenProvider tokenProvider) {
         this.authService = authService;
         this.tokenProvider = tokenProvider;
-        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @PostMapping("/login")

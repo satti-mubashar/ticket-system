@@ -152,12 +152,6 @@ public class AuthControllerAdvice {
         return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
     }
 
-    @ExceptionHandler(value = UserRegistrationException.class)
-    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-    @ResponseBody
-    public ApiResponse handleUserRegistrationException(UserRegistrationException ex, WebRequest request) {
-        return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
-    }
 
     @ExceptionHandler(value = PasswordResetLinkException.class)
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
@@ -166,19 +160,6 @@ public class AuthControllerAdvice {
         return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
     }
 
-    @ExceptionHandler(value = PasswordResetException.class)
-    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-    @ResponseBody
-    public ApiResponse handlePasswordResetException(PasswordResetException ex, WebRequest request) {
-        return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
-    }
-
-    @ExceptionHandler(value = MailSendException.class)
-    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
-    @ResponseBody
-    public ApiResponse handleMailSendException(MailSendException ex, WebRequest request) {
-        return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
-    }
 
     @ExceptionHandler(value = InvalidTokenRequestException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
@@ -187,26 +168,6 @@ public class AuthControllerAdvice {
         return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
     }
 
-    @ExceptionHandler(value = UpdatePasswordException.class)
-    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-    @ResponseBody
-    public ApiResponse handleUpdatePasswordException(UpdatePasswordException ex, WebRequest request) {
-        return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
-    }
 
-
-    @ExceptionHandler(value = TokenRefreshException.class)
-    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-    @ResponseBody
-    public ApiResponse handleTokenRefreshException(TokenRefreshException ex, WebRequest request) {
-        return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
-    }
-
-    @ExceptionHandler(value = UserLogoutException.class)
-    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-    @ResponseBody
-    public ApiResponse handleUserLogoutException(UserLogoutException ex, WebRequest request) {
-        return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));
-    }
 
 }

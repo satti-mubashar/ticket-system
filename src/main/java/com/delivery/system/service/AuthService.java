@@ -31,29 +31,14 @@ import java.util.Optional;
 public class AuthService {
 
     private static final Logger logger = Logger.getLogger(AuthService.class);
-    private final UserService userService;
     private final JwtTokenProvider tokenProvider;
-    private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthService(UserService userService, JwtTokenProvider tokenProvider,
-                       PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager ) {
-        this.userService = userService;
+    public AuthService(JwtTokenProvider tokenProvider,AuthenticationManager authenticationManager ) {
         this.tokenProvider = tokenProvider;
-        this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
     }
-
-    public Boolean emailAlreadyExists(String email) {
-        return userService.existsByEmail(email);
-    }
-
-
-    public Boolean usernameAlreadyExists(String username) {
-        return userService.existsByUsername(username);
-    }
-
 
     public Optional<Authentication> authenticateUser(LoginRequest loginRequest) {
         return Optional.ofNullable(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
