@@ -1,5 +1,6 @@
 package com.delivery.system.service;
 
+import com.delivery.system.enums.CustomerType;
 import com.delivery.system.enums.DeliveryPriority;
 import com.delivery.system.enums.DeliveryStatus;
 import com.delivery.system.enums.TicketType;
@@ -55,15 +56,16 @@ public class TicketService {
     public void setPriorityOfDeliveries(List<Delivery> deliveries) {
         for (Delivery delivery : deliveries) {
             Set<Ticket> ticketSet = null;
-            switch (delivery.getCustomerType()) {
-                case VIP:
-                    logger.info("Delivery with VIP customer");
-                    delivery.setPrioirty(DeliveryPriority.HIGH);
-                    ticketSet = new HashSet<>();
-                    ticketSet.add(createTicket(DeliveryPriority.HIGH, delivery));
-                    delivery.setTicketSet(ticketSet);
-                    continue;
+
+            if(delivery.getCustomerType() == CustomerType.VIP){
+                logger.info("Delivery with VIP customer");
+                delivery.setPrioirty(DeliveryPriority.HIGH);
+                ticketSet = new HashSet<>();
+                ticketSet.add(createTicket(DeliveryPriority.HIGH, delivery));
+                delivery.setTicketSet(ticketSet);
+                continue;
             }
+
 
             // (Order received, Order Preparing, Order Pickedup, Order Delivered
             if (new Date().after(Date.from(delivery.getExpectedDeliveryTime()))
@@ -76,26 +78,23 @@ public class TicketService {
                 continue;
             }
 
-            switch (delivery.getDeliveryStatus()) {
-                case ORDER_DELIVERED:
-                    break;
-                default:
-                    Long minutes = delivery.getMeanTimeToPrepareMins();
-                    Date timeToReach = Date.from(delivery.getTimeToReachDistance());
-                    final long ONE_MINUTE_IN_MILLIS = 60000;
+            if(delivery.getDeliveryStatus() != DeliveryStatus.ORDER_DELIVERED){
+                Long minutes = delivery.getMeanTimeToPrepareMins();
+                Date timeToReach = Date.from(delivery.getTimeToReachDistance());
+                final long ONE_MINUTE_IN_MILLIS = 60000;
 
-                    long timeToReachAfterAddingFoodPreparationMinutes = timeToReach.getTime()
-                            + (minutes * ONE_MINUTE_IN_MILLIS);
-                    logger.info("Delivery estimation is greater than the expected time ");
-                    Date estimatedTime = new Date(timeToReachAfterAddingFoodPreparationMinutes);
-                    if (estimatedTime.after(Date.from(delivery.getExpectedDeliveryTime()))) {
-                        delivery.setPrioirty(DeliveryPriority.HIGH);
-                        ticketSet = new HashSet<>();
-                        ticketSet.add(createTicket(DeliveryPriority.HIGH, delivery));
-                        delivery.setTicketSet(ticketSet);
-                        continue;
-                    }
-                    break;
+                long timeToReachAfterAddingFoodPreparationMinutes = timeToReach.getTime()
+                        + (minutes * ONE_MINUTE_IN_MILLIS);
+                logger.info("Delivery estimation is greater than the expected time ");
+                Date estimatedTime = new Date(timeToReachAfterAddingFoodPreparationMinutes);
+                if (estimatedTime.after(Date.from(delivery.getExpectedDeliveryTime()))) {
+                    delivery.setPrioirty(DeliveryPriority.HIGH);
+                    ticketSet = new HashSet<>();
+                    ticketSet.add(createTicket(DeliveryPriority.HIGH, delivery));
+                    delivery.setTicketSet(ticketSet);
+                    continue;
+                }
+
             }
 
             delivery.setPrioirty(DeliveryPriority.LOW);
