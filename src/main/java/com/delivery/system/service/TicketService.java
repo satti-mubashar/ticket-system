@@ -53,7 +53,7 @@ public class TicketService {
     }
 
     @Async
-    public void setPriorityOfDeliveries(List<Delivery> deliveries) {
+    public List<Delivery>  setPriorityOfDeliveries(List<Delivery> deliveries) {
         for (Delivery delivery : deliveries) {
             Set<Ticket> ticketSet = null;
 
@@ -99,6 +99,7 @@ public class TicketService {
 
             delivery.setPrioirty(DeliveryPriority.LOW);
         }
+        return deliveries;
     }
 
     @Async

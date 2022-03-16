@@ -49,6 +49,21 @@ public class Delivery extends DateAudit {
     @JsonBackReference
     private Set<Ticket> ticketSet;
 
+    public Delivery() {
+    }
+
+    public Delivery(Long deliveryId, CustomerType customerType, DeliveryStatus deliveryStatus, Instant expectedDeliveryTime,
+                    int currentDistance, Instant timeToReachDestination, Long meanTimeToPrepareMins) {
+        super();
+        this.meanTimeToPrepareMins = meanTimeToPrepareMins;
+        this.id = deliveryId;
+        this.customerType = customerType;
+        this.deliveryStatus = deliveryStatus;
+        this.expectedDeliveryTime = expectedDeliveryTime;
+        this.currentDistance = currentDistance;
+        this.timeToReachDistance = timeToReachDestination;
+    }
+
     public Long getId() {
         return id;
     }
