@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
@@ -31,6 +32,12 @@ public class TicketService {
 
     @Autowired
     private DeliveryService deliveryService;
+
+    private static Delivery apply(Delivery delivery) {
+        delivery.setPrioirty(delivery.getCustomerType().equals(CustomerType.VIP) ?
+                DeliveryPriority.HIGH : DeliveryPriority.LOW);
+        return delivery;
+    }
 
     public Page<Ticket> getAllTicket(Pageable pageable) {
         return ticketRepository.findAll(pageable);
@@ -53,32 +60,18 @@ public class TicketService {
     }
 
     @Async
-    public void setPriorityOfDeliveries(List<Delivery> deliveries) {
-        for (Delivery delivery : deliveries) {
+    public List<Delivery> setPriorityOfDeliveries(List<Delivery> deliveries) {
+
+        List<Delivery> deliveryCollect = deliveries.parallelStream().map(TicketService::apply).collect(Collectors.toList());
+
+        for (Delivery delivery : deliveryCollect) {
             Set<Ticket> ticketSet = null;
-
-            if(delivery.getCustomerType() == CustomerType.VIP){
-                logger.info("Delivery with VIP customer");
-                delivery.setPrioirty(DeliveryPriority.HIGH);
-                ticketSet = new HashSet<>();
-                ticketSet.add(createTicket(DeliveryPriority.HIGH, delivery));
-                delivery.setTicketSet(ticketSet);
-                continue;
-            }
-
-
-            // (Order received, Order Preparing, Order Pickedup, Order Delivered
             if (new Date().after(Date.from(delivery.getExpectedDeliveryTime()))
                     && !DeliveryStatus.ORDER_DELIVERED.equals(delivery.getDeliveryStatus())) {
-                logger.info("Delivery time passes and status is not delivered");
-                delivery.setPrioirty(DeliveryPriority.HIGH);
-                ticketSet = new HashSet<>();
-                ticketSet.add(createTicket(DeliveryPriority.HIGH, delivery));
-                delivery.setTicketSet(ticketSet);
-                continue;
+                setPriotiyAndGenerateTicket(delivery);
             }
 
-            if(delivery.getDeliveryStatus() != DeliveryStatus.ORDER_DELIVERED){
+            if (!delivery.getDeliveryStatus().equals(DeliveryStatus.ORDER_DELIVERED)) {
                 Long minutes = delivery.getMeanTimeToPrepareMins();
                 Date timeToReach = Date.from(delivery.getTimeToReachDistance());
                 final long ONE_MINUTE_IN_MILLIS = 60000;
@@ -88,23 +81,24 @@ public class TicketService {
                 logger.info("Delivery estimation is greater than the expected time ");
                 Date estimatedTime = new Date(timeToReachAfterAddingFoodPreparationMinutes);
                 if (estimatedTime.after(Date.from(delivery.getExpectedDeliveryTime()))) {
-                    delivery.setPrioirty(DeliveryPriority.HIGH);
-                    ticketSet = new HashSet<>();
-                    ticketSet.add(createTicket(DeliveryPriority.HIGH, delivery));
-                    delivery.setTicketSet(ticketSet);
-                    continue;
+                    setPriotiyAndGenerateTicket(delivery);
                 }
-
             }
-
-            delivery.setPrioirty(DeliveryPriority.LOW);
         }
+        return deliveries;
+    }
+
+    private void setPriotiyAndGenerateTicket(Delivery delivery) {
+        Set<Ticket> ticketSet;
+        delivery.setPrioirty(DeliveryPriority.HIGH);
+        ticketSet = new HashSet<>();
+        ticketSet.add(createTicket(DeliveryPriority.HIGH, delivery));
+        delivery.setTicketSet(ticketSet);
     }
 
     @Async
     public void getDeliveriesAndAdjust() {
         List<Delivery> deliveries = adjustPriority();
-        System.out.println("Saving filter data");
         logger.info("saving filtered deliveries");
         deliveryService.saveAllDeliveries(deliveries);
     }

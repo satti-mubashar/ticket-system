@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity(name = "DELIVERY")
 public class Delivery extends DateAudit {
@@ -49,6 +50,20 @@ public class Delivery extends DateAudit {
     @JsonBackReference
     private Set<Ticket> ticketSet;
 
+    public Delivery() {
+    }
+
+    public Delivery(Long deliveryId, CustomerType customerType, DeliveryStatus deliveryStatus, Instant expectedDeliveryTime,
+                    int currentDistance, Instant timeToReachDestination, Long meanTimeToPrepareMins) {
+        super();
+        this.meanTimeToPrepareMins = meanTimeToPrepareMins;
+        this.id = deliveryId;
+        this.customerType = customerType;
+        this.deliveryStatus = deliveryStatus;
+        this.expectedDeliveryTime = expectedDeliveryTime;
+        this.currentDistance = currentDistance;
+        this.timeToReachDistance = timeToReachDestination;
+    }
     public Long getId() {
         return id;
     }
@@ -127,5 +142,21 @@ public class Delivery extends DateAudit {
 
     public void setMeanTimeToPrepareMins(Long meanTimeToPrepareMins) {
         this.meanTimeToPrepareMins = meanTimeToPrepareMins;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Delivery.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("customerType=" + customerType)
+                .add("deliveryStatus=" + deliveryStatus)
+                .add("expectedDeliveryTime=" + expectedDeliveryTime)
+                .add("currentDistance=" + currentDistance)
+                .add("riderRating=" + riderRating)
+                .add("timeToReachDistance=" + timeToReachDistance)
+                .add("meanTimeToPrepareMins=" + meanTimeToPrepareMins)
+                .add("prioirty=" + prioirty)
+                .add("ticketSet=" + ticketSet)
+                .toString();
     }
 }
