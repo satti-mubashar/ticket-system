@@ -64,6 +64,10 @@ public class Delivery extends DateAudit {
         this.currentDistance = currentDistance;
         this.timeToReachDistance = timeToReachDestination;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2f885c1186ec22cbc4a2dbd08df852ab9a8fb81c
     public Long getId() {
         return id;
     }
