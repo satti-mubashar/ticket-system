@@ -1,0 +1,16 @@
+select cm.committee_reference_id as committeeReferenceId,zt.zone_name as zoneName, c.company_name as companyName, uad.application_reference_id as applicationReferenceId,
+uad.application_status as applicationStatus, d.district_name as district , uad.application_required_area as applicationRequiredArea,
+                                                replace( replace( TRIM(BOTH '\"' from uad.form_data),'\\\\', '')  ,' ', '_') as jsonData ,
+                                                 (SELECT COALESCE(GROUP_CONCAT(CONCAT(ept.plot_reference_id ,',',ept.plot_Area,',',ept.plot_id,
+                               ',',ept.plot_number)  SEPARATOR ':'), '') as soldPlots FROM plot ept 
+                                 inner join user_application_data  euad on euad.application_id = ept.application_id
+                                 where euad.application_id = uad.application_id and ept.plot_status = 'SOLD' and euad.application_status = 'APPROVED') as soldPlots
+                                                 from user_application_data uad
+                                                inner join committee_enterprise_applications cse on cse.enterprise_application_id = uad.application_id
+                                                 inner join committee cm on cse.committee_id = cm.committee_id
+                                                left JOIN  enterprise_application_plot ep on ep.application_id = uad.application_id
+                                                left JOIN plot ept on ept.plot_id = ep.plot_id
+                                                 inner join zone_template zt on zt.template_id = cse.zone_id
+                                                 inner join company c on c.company_id = uad.company_id
+                                                inner join district d on d.district_id = uad.district_id
+                                                 where uad.application_type = 'ENTERPRISE' and uad.application_status='APPROVED'
